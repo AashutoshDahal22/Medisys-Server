@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
-const chatController = require("./controllers/messageController"); 
+const chatController = require("./controllers/messageController");
 
 const authRoutes = require("./routes/authRoutes");
 const emailReminderRoutes = require("./routes/emailReminderRoutes");
@@ -17,15 +17,15 @@ const superadminRoutes = require("./routes/superadminRoutes");
 const adminRoutes = require("./routes/Admin/adminRoutes");
 const reportRoutes = require("./routes/reportTemplateRoute");
 const autoCompleteRoutes = require("./routes/autoCompleteRoutes");
-const messageRoutes=require("./routes/messageRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const patientHistoryRoutes = require("./routes/patientHistoryRoutes");
-const pdfUploadRoutes=require('./routes/pdfUploadRoutes');
-const {reschedulePendingReminders} = require("./services/reminderService");
+const pdfUploadRoutes = require('./routes/pdfUploadRoutes');
+const { reschedulePendingReminders } = require("./services/reminderService");
 
 const { authenticateToken } = require("./tokens/authenticateToken");
 
 const app = express();
-const server = http.createServer(app); 
+const server = http.createServer(app);
 
 app.use(
   cors({
@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const mode = "development";
-const URL = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Password}@pms.7s7kbw4.mongodb.net/PMS?retryWrites=true&w=majority&appName=PMS`;
+const URL = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Password}@medisys-cluster.im5phw6.mongodb.net/?appName=Medisys-cluster`;
 const development_URL = `mongodb://127.0.0.1:27017/`;
 
 const connectDB = async () => {
@@ -65,15 +65,15 @@ app.use("/reminder", emailReminderRoutes);
 app.use("/patient", patientRoutes);
 app.use("/admin", adminRoutes);
 app.use("/report", reportRoutes);
-app.use("/history",patientHistoryRoutes)
+app.use("/history", patientHistoryRoutes)
 app.use("/auto", autoCompleteRoutes);
-app.use("/chat",messageRoutes);
-app.use('/uploads',pdfUploadRoutes);
+app.use("/chat", messageRoutes);
+app.use('/uploads', pdfUploadRoutes);
 
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.post('/payment' , async (req, res) => {
+app.post('/payment', async (req, res) => {
   try {
     const { amount } = req.body;
 
