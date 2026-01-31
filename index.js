@@ -36,7 +36,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-const mode = "development";
+const mode = "local";
 const URL = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Password}@medisys-cluster.im5phw6.mongodb.net/?appName=Medisys-cluster`;
 const development_URL = `mongodb://127.0.0.1:27017/`;
 
